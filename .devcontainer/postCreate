@@ -1,0 +1,10 @@
+#!/bin/sh
+set -e
+
+bundle install
+
+yarn install
+yarn build
+yarn build:css
+
+./bin/rails db:prepare

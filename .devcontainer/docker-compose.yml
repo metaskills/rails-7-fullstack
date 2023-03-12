@@ -1,0 +1,16 @@
+services:
+  app:
+    build: { context: ., dockerfile: Dockerfile }
+    command: sleep infinity
+    privileged: true
+    environment:
+      REDIS_URL: redis://redis:6379/
+    depends_on:
+      redis: { condition: service_healthy }
+  redis:
+    image: redis:latest
+    volumes: ["data-redis:/data"]
+    healthcheck: { test: redis-cli ping }
+volumes:
+  data-postgres:
+  data-redis:
